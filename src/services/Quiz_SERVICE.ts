@@ -4,6 +4,11 @@ import {
   categoriesType,
 } from "../types/Quiz_TYPE";
 
+//shuffle array
+const shuffleArray = (array: any[]) =>
+  [...array].sort(() => Math.random() - 0.5);
+
+//getting filtered questions from api
 export const quizData = async (
   numQuestions: number,
   diffculty: string,
@@ -18,8 +23,8 @@ export const quizData = async (
       return {
         questions: questionsObj.question,
         answer: questionsObj.correct_answer,
-        options: questionsObj.incorrect_answers.concat(
-          questionsObj.correct_answer
+        options: shuffleArray(
+          questionsObj.incorrect_answers.concat(questionsObj.correct_answer)
         ),
       };
     }
@@ -28,6 +33,7 @@ export const quizData = async (
   return quiz;
 };
 
+//get all categories from api
 export const Categories = async () => {
   const res = await fetch("https://opentdb.com/api_category.php");
   const { trivia_categories } = await res.json();
