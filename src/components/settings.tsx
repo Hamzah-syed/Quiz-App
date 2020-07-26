@@ -114,12 +114,14 @@ const Settings: React.FC<settingPropsType> = ({
       setError({
         ...error,
         categoryname: String("Name is required"),
-        // numberOfQues: String("Number Of Question Is Required"),
       });
-    } else if (setting.numberOfQuestions <= 3) {
+    } else if (
+      setting.numberOfQuestions <= 3 ||
+      setting.numberOfQuestions >= 50
+    ) {
       setError({
         ...error,
-        numberOfQues: String("kindly add more than 3 questions"),
+        numberOfQues: String("Number of questions should be between 3 to 50"),
       });
     } else {
       setSendRequest(true);
